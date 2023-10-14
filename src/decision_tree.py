@@ -42,7 +42,8 @@ class DecisionTree():
         """
         left_indices = []
         right_indices = []
-        
+
+        # For each node append to the left or the right branch based on feature
         for node in node_indices:
             if X[node][feature]==1:
                 left_indices.append(node)
@@ -97,6 +98,8 @@ class DecisionTree():
         
         best_feature = -1
         max_information_gain = 0
+
+        # Find the best feature to split on with the biggest information gain
         for feature in range(num_features):
             current_information_gain = self._compute_information_gain(X, y, node_indices, feature)
             if current_information_gain > max_information_gain:

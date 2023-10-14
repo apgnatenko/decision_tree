@@ -1,10 +1,13 @@
+import os
+parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
 from PIL import Image
 import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.drawing.nx_pydot import graphviz_layout
 
 def generate_node_image(node_indices):
-    image_paths = ["data/images/%d.png" % idx for idx in node_indices]
+    image_paths = [os.path.join(parent_dir, "data/%d.png") % idx for idx in node_indices]
     images = [Image.open(x) for x in image_paths]
     widths, heights = zip(*(i.size for i in images))
 
@@ -25,8 +28,6 @@ def generate_node_image(node_indices):
 def generate_tree_viz(root_indices, y, tree):
     
     G=nx.DiGraph()
-    
-    
     G.add_node(0,image= generate_node_image(root_indices))
     idx = 1
     root = 0
